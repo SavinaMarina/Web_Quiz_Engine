@@ -1,0 +1,19 @@
+package engine.security;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+
+@RestController
+@RequestMapping("/api")
+public class UserController {
+    @Autowired
+    UserService userService;
+
+    @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void addUser(@RequestBody @Valid User user) {
+        userService.save(user);
+    }
+}
