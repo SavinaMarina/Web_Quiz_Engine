@@ -1,4 +1,4 @@
-package engine;
+package engine.persistence;
 
 public class QuizResults {
     private boolean success;

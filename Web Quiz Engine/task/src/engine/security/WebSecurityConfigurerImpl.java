@@ -5,19 +5,24 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @EnableWebSecurity
 public class WebSecurityConfigurerImpl extends WebSecurityConfigurerAdapter {
 
+    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    UserService userService;
-    @Autowired
-    PasswordEncoderConfig passwordEncoderConfig;
+    public WebSecurityConfigurerImpl(UserService userService, PasswordEncoder passwordEncoder) {
+        this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public void configure(AuthenticationManagerBuilder builder) throws Exception {
         builder.userDetailsService(userService)
-               .passwordEncoder(passwordEncoderConfig.getEncoder());
+               .passwordEncoder(passwordEncoder);
     }
 
     @Override

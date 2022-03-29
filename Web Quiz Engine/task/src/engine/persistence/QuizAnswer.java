@@ -1,4 +1,4 @@
-package engine;
+package engine.persistence;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

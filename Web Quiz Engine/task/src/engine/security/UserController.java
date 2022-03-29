@@ -9,8 +9,12 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api")
 public class UserController {
+    private final UserService userService;
+
     @Autowired
-    UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
     public void addUser(@RequestBody @Valid User user) {

@@ -1,5 +1,6 @@
-package engine;
+package engine.persistence;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import engine.security.User;
 
@@ -33,12 +34,16 @@ public class Quiz {
     @JoinColumn(name = "QuizID", nullable = false)
     private List<QuizOption> options = new ArrayList<>();
 
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.REMOVE)
+    @JsonIgnore
+    private List<QuizCompletion> quizCompletions = new ArrayList<>();;
+
     @ManyToOne
     @JoinColumn(name = "UserID", nullable = false)
+    @JsonIgnore
     private User user;
 
     public Quiz() {
-        // used by Spring
     }
 
     public String getTitle() {
